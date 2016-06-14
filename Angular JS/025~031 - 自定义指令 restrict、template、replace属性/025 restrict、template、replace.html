@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular.min.js"></script>
+</head>
+<body ng-app="app">
+
+//   自定义属性有以下 配置属性
+// restrict         指令再魔板中的使用方式 那种风格
+// template
+// replace
+
+// templateUrl
+
+// transclude
+// priority
+// terminal
+
+// complie
+// link
+
+// controller
+// controllerAs
+
+// scope
+// require
+<xxx-yyy>123</xxx-yyy>
+<span class="xxx-yyy"></span>
+<div xxx-yyy></div>
+<!--directive:xxx-yyy-->
+<br/>
+下面这是 provide的测试
+<div ng-controller="c1">
+    <div>{{heihei}}</div>
+</div>
+</body>
+<script>
+angular.module('app',[],function($compileProvider,$provide){
+
+    $compileProvider.directive('xxxYyy',function(){
+        return {
+            restrict:'ECAM',
+            //e 元素 c class m注释 a 属性
+            template:'<div>Sherry</div>',
+            replace:true
+        }
+    });
+
+
+
+    $provide.factory('Sherry',function(){
+        return 'Sherry'
+    })
+}).controller('c1',function($scope,Sherry){
+   $scope.heihei=Sherry
+});
+
+//    自定义指令实现方法
+//    1 angular.module.directive(name,factory) 就跟.controller一样.出来
+//    2 @see$compileProvider.directive()
+//注意  指令的名字要注意
+//    如果指令的名字是 xxx-yyy再设置指令的名字时要写成 xxxYyy
+
+
+</script>
+</html>

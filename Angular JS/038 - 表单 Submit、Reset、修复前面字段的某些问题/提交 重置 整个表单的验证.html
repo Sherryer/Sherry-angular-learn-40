@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular.min.js"></script>
+</head>
+<body ng-app="body">
+<form action="" name="form" ng-controller="c1">
+    <input type="text" ng-required="true" ng-model="data.name"/>
+    <input type="submit" value="提交了啊" ng-disabled="form.$invalid"/>
+
+    <input type="reset" value="重置" ng-click="demo()"/>
+</form>
+</body>
+<script>
+
+    angular.module('body', []).controller('c1', ['$scope', function ($scope) {
+
+
+        $scope.data={};
+
+        $scope.copydata=angular.copy($scope.data);
+        $scope.demo = function () {
+            alert(1);
+            $scope.from.$setPristine();
+            // 把表单里的  class $dirty $pristien 变成默认值
+            $scope.data=angular.copy
+        }
+    }])
+</script>
+</html>

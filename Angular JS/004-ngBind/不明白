@@ -1,0 +1,4 @@
+为什么使用ng-Bind 而不直接把angular放在头文件里插入
+明白了 因为ng-Bind不仅有 script执行完再加载功能 还有
+//    ng-model等同 value
+//    ng-bind 等同 innerHTML

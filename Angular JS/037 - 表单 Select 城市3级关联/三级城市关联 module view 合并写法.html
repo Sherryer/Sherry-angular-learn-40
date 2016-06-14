@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="../../ku/angular.min.js"></script>
+    <title>module view 合并写法</title>
+</head>
+<body ng-app="body">
+<div ng-controller="c1">
+    <select ng-model="parent" ng-options="city.name as city.name for city in data|cityFilter:0"></select>
+    <select ng-model="son1" ng-options="city.name as city.name for city in data|cityFilter:parent"></select>
+    <select ng-model="son2" ng-options="city.name as city.name for city in data|cityFilter:son1"></select>
+</div>
+</body>
+<script>
+angular.module('body',[])
+        .filter('cityFilter',function (){
+            return function(data,father){
+                var arr=[];
+                angular.forEach(data,function(item){
+                    if(item.father==father){
+                        arr.push(item)
+                    }
+                });
+                return arr
+            }
+        })
+        .controller('c1',['$scope',function ($scope){
+            $scope.data=[
+                {'name':'北京',
+                 'father':0},
+                {
+                    'name':'东城',
+                    'father':'北京'
+                },
+                {
+                    'name':'丰台',
+                    'father':'北京'
+                },
+                {
+                    'name':'东城的儿子',
+                    'father':'东城'
+                },
+                {
+                    'name':'丰台的儿子',
+                    'father':'丰台'
+                },
+                {
+                    'name':'河北',
+                    'father':0
+                },
+                {
+                    'name':'保定',
+                    'father':'河北'
+                },
+                {
+                    'name':'秦皇岛',
+                    'father':'河北'
+                },
+                {
+                    'name':'新市区',
+                    'father':'保定'
+                },
+                {
+                    'name':'高开区',
+                    'father':'保定'
+                },
+                {
+                    'name':'海港区',
+                    'father':'秦皇岛'
+                },
+                {
+                    'name':'北戴河',
+                    'father':'秦皇岛'
+                }
+            ]
+        }])
+</script>
+</html>

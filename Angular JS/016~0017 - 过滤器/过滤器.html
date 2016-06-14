@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>filter</title>
+    <script src="../angular.min.js"></script>
+</head>
+<body  ng-app='body'>
+
+   <div ng-controller="c1">
+       <h1>number 数字</h1>
+       <input type="text" ng-model="number1"/>
+       <!--123,456 三位加个逗号-->
+       <p>{{number1|number}}</p>
+       <!--123,456.00 不仅三位加逗号 还保留两位小数-->
+       <p>{{number1|number:2}}</p>
+       <hr/>
+
+
+       <h1>currency 货币</h1>
+       <!--$4,300.00  三位加逗号 保留两位小数 默认美金-->
+       <p>{{number2|currency}}</p>
+       <!--rmb4,300.00 后面可以跟字符串 字符串是什么 前面货币就是什么-->
+       <p>{{number2|currency:'rmb'}}</p>
+       <hr/>
+
+
+       <h1>date 日期</h1>
+       <!--Jan 26, 2016                          通过时间戳对日期格式化-->
+       <p>{{today | date}}</p>
+       <!--Jan 26, 2016-->
+       <p>{{today | date :'mediumDate'}}</p>
+       <!--9:37:52 AM-->
+       <p>{{today | date :'mediumTime'}}</p>
+       <!--Jan 26, 2016 9:32:59 AM-->
+       <p>{{today | date :'medium'}}</p>
+       <!--1/26/16 9:35 AM-->
+       <p>{{today | date :'short'}}</p>
+       <!--1/26/16-->
+       <p>{{today | date :'shortDate'}}</p>
+       <!--9:38 AM-->
+       <p>{{today | date :'shortTime'}}</p>
+       <!--Tuesday, January 26, 2016-->
+       <p>{{today | date :'fullDate'}}</p>
+       <!--January 26, 2016-->
+       <p>{{today | date :'longDate'}}</p> <hr/>
+
+
+
+       年
+       <!--年   2016-->
+       <p>{{today|date:'y'}}</p>
+       <!--年   16-->
+       <p>{{today|date:'yy'}}</p>
+       月
+       <!--月   1-->
+       <p>{{today|date:'M'}}</p>
+       <!--月   01-->
+       <p>{{today|date:'MM'}}</p>
+       <!--月   Jan-->
+       <p>{{today|date:'MMM'}}</p>
+       <!--月   January-->
+       <p>{{today|date:'MMMM'}}</p>
+       日
+       <!--数字  26-->
+       <p>{{today|date:'d'}}</p>
+       <!--数字  26-->
+       <p>{{today|date:'dd'}}</p>
+       <!--英文 简写 周二-->
+       <p>{{today|date:'EEE'}}</p>
+       <!--英文 全拼 周二-->
+       <p>{{today|date:'EEEE'}}</p>
+
+       小时
+       <!--12小时制-->
+       <p>{{today|date:'h'}}</p>
+       <!--自动补零-->
+       <p>{{today|date:'hh'}}</p>
+       <!--24小时制-->
+       <p>{{today|date:'H'}}</p>
+       <!--自动补零-->
+       <p>{{today|date:'HH'}}</p>
+
+       分
+       <p>{{today|date:'m'}}</p>
+       <p>{{today|date:'mm'}}</p>
+
+       秒
+       <p>{{today|date:'s'}}</p>
+       <!--自动补零-->
+       <p>{{today|date:'ss'}}</p>
+       毫秒
+       <p>{{today|date:'.sss'}}</p>
+
+       年-月-日 时-分-秒
+      <p>{{today|date:'y-MM-dd HH-mm-ss'}}</p>
+       <hr/>
+
+
+       <h1>limitTo 截取几条数据</h1>
+       <p>{{[1,2,3,4,5,6,7] | limitTo:'3'}}</p>
+       <!--负数是倒着截取-->
+       <p>{{[1,2,3,4,5,6,7] | limitTo:'-2'}}</p>
+       <hr/>
+
+       <h1>lowercase uppercase</h1>
+       <p>{{message|lowercase}}</p>
+       <p>{{message|uppercase}}</p>
+       <hr/>
+
+
+       <h1>filter 过滤</h1>
+       <p>{{city}}   这个没过滤</p>
+       以字符串形式搜索 搜索这个对象的所有‘值’(匹配不到属性) 只要里面有搜索的内容就会匹配到
+       <p>{{city|filter:'上海'}}</p>
+       <p>{{city|filter:'s'}}</p>
+       以对象形式搜索 对象属性是否包含某个值
+       <p>{{city|filter:{pinyin:'s'} }}</p>
+       自定义过滤 很奇怪1 这样写不用加括号和参数 会自动把 过滤的对象以参数穿进去(city) 2没有经过$scope.过的不能过滤
+       <br/>
+       <input type="text" ng-model="checkName1"/>
+       <p>{{city|filter:checkName1}}</p>
+       <p>{{city|filter:checkName}}</p>
+       <hr/>
+
+
+       <h1>orderBy排序</h1>
+       <p>{{paixu|orderBy}}</p>
+       <!--倒叙加负号-->
+       <p>{{paixu|orderBy:'-'}}</p>
+       <!--把对象按照某个属性排序 参数填属性的名称-->
+       <p>{{city|orderBy:'pinyin'}}</p>
+
+   </div>
+</body>
+<script>
+    angular.module('body',[]).controller('c1',function($scope,$filter){
+        $scope.checkName1='shanghai';
+        $scope.number1=123456;
+        $scope.number2=4300;
+        $scope.today=new Date().getTime();
+        $scope.message='AbcDEfG';
+        $scope.city=[
+            {
+                name:'上海',
+                pinyin:'shanghai'
+            },
+            {
+                name:'北京',
+                pinyin:'beijing'
+            },
+            {
+                name:'四川',
+                pinyin:'sichuan'
+            }
+        ];
+        $scope.paixu=[11,2,4,3,1];
+
+//  学习json 要先学习    控制器里使用 过滤器
+//      控制器里使用过滤器  在参数里  注入$filter
+        var num=$filter('number')(3000);
+        console.log(num);
+
+        var fil=$filter('json')($scope.city);
+        console.log(fil);                //对比他俩区别就知道了
+        console.log($scope.city);       //对比他俩区别就知道了
+
+    $scope.checkName=function(a){
+//          console.log(a);
+        if(a.pinyin.indexOf('h')===-1){
+            return false;
+        }
+        return true;
+    }
+    });
+
+
+
+
+
+
+
+
+//    过滤：1数据的格式化
+//    2数据的筛选
+//    过滤器的种类：
+//    number                                  数字类型
+//    currency                                货币
+//    date                                    日期
+//    limitTo                                 截取
+//    lowercase
+//    uppercase
+//    filter(string|function|object)          过滤（数组|对象|字符串）都可以过滤
+//               filter可以自定义一个过滤
+
+//    orderBy(string|function|object)         排序
+//    json                                    把一个对象一个数组 转化成json格式 主要是给我们做调试的 再控制器使用
+
+</script>
+</html>

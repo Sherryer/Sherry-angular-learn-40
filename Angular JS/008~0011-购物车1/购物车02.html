@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular.min.js"></script>
+</head>
+<body ng-app="body">
+<div ng-controller="contain">
+    <table ng-show="json.length">
+        <tr>
+            <td>产品型号</td>
+            <td>产品名称</td>
+            <td>数量</td>
+            <td>价格</td>
+        </tr>
+        <tr ng-repeat="i in json">
+            <td>{{i.id}}</td>
+            <td>{{i.name}}</td>
+            <td>
+                <button ng-click="red(i.id)">-</button>
+                {{i.number}}
+                <button ng-click="add(i.id)">+</button>
+            </td>
+            <td>{{i.value}}</td>
+            <td><button ng-click="delete(i.id)">删除</button></td>
+        </tr>
+        <tr>
+            <td>总价{{zongjia()}}</td>
+            <td>总数量{{zongshu()}}</td>
+            <td><button ng-click="json={}">清空购物车</button></td>
+        </tr>
+    </table>
+    <p ng-show="!json.length">您的购物车为空</p>
+</div>
+</body>
+<script>
+    angular.module('body', []).controller({
+        contain: function ($scope) {
+
+            //找到对应id
+            var findIndex=function(id){
+                var i=-1;
+                angular.forEach($scope.json,function(item,key){
+                    if(id==item.id){
+                         i=key;
+                        return i
+                    }
+                });
+                return i
+            };
+
+            //删除
+            $scope.delete=function(id){
+                     var i=findIndex(id);
+                     $scope.json.splice(i,1)
+            };
+
+            // 加减按钮
+            $scope.add=function(id){
+                var i=findIndex(id);
+                    $scope.json[i].number++;
+            };
+            $scope.red=function(id){
+                var i=findIndex(id);
+                if($scope.json[i].number>1){
+                    $scope.json[i].number--;
+                }else{
+                    var flag=confirm('确定要删除这一项么');
+                    if(flag){
+                        $scope.delete(id)
+                    }
+                }
+
+
+            };
+
+
+            //总价
+            $scope.zongjia=function(){
+                var sum=0;
+                angular.forEach($scope.json,function(item){
+                    sum+=parseInt(item.number)*parseInt(item.value)
+                });
+                return sum
+            };
+
+            //总数量
+            $scope.zongshu=function(){
+                var sum=0;
+                angular.forEach($scope.json,function(a){
+                    sum+= a.number;
+                });
+                return sum;
+            };
+
+
+
+
+            $scope.json = [
+                {
+                    id: 1000,
+                    name:'iphone6s',
+                    number:3,
+                    value:5500
+                },
+                {
+                    id: 2000,
+                    name:'iphone6',
+                    number:2,
+                    value:5000
+                },
+                {
+                    id: 3000,
+                    name:'mac',
+                    number:5,
+                    value:12000
+                },
+                {
+                    id: 4000,
+                    name:'ipad',
+                    number:4,
+                    value:4800
+                }];
+
+        }
+    })
+</script>
+</html>

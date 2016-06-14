@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+  <div ng-app="a">
+     <div ng-controller="abc">
+         <input type="text" ng-model="name"/>
+         <!--<input type="text" ng-bind="name"/>-->
+         <!--给盒子一个属性 ng-bind='表达式'-->
+         <span ng-bind='name'></span>
+         <div ng-bind="aa"></div>
+     </div>
+  </div>
+</body>
+<script src="../angular.min.js"></script>
+<script>
+//    ng-model等同 value
+//    ng-bind 等同 innerHTML
+    angular.module('a',[]).controller('abc',function($scope){
+        $scope.name='heihei';
+        $scope.aa='123'
+    })
+</script>
+</html>

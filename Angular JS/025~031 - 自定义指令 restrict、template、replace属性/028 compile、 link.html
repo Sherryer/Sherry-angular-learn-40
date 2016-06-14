@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular.min.js"></script>
+</head>
+<body ng-app="body">
+
+    <div xxx></div>
+
+</body>
+<script>
+    //compile 里面返回的就是link
+    angular.module('body',[])
+            .directive('xxx',function(){
+                return {
+                    restrict:'ECMA',
+                    template:'<div>Sherry</div>',
+                    replace:true,
+
+                    //compile 有什么用
+                    //    1 想在dom渲染前对它进行变形 并且不需要scope参数
+                    //    2 再所有相同directive里共享某些方法
+                    compile:function(tElement,tAttr,transclude){ //这里的参数随便写 没有依赖注入
+                        console.log(tElement);
+                        console.log(tAttr);
+                        console.log(transclude);
+                        tElement.append(angular.element('<div>asd</div>'));
+
+
+                        return {
+
+                            pre:function preLink(scope,element,attr,controller){
+                                element.on('click',function(){
+                                    alert(1);
+                                });
+
+                                console.log('只连接到一个子元素(表达式)时就执行')
+                            },
+                            post:function postLink(scope,element,attr,controller){
+                                element.on('click',function(){
+                                    alert(2)
+                                });
+                                console.log('所有子元素都连接后才执行')
+                            }
+                        }
+                    },
+
+
+                    //link 有什么用 首先link就是上面的postLink 他主要用来绑定事件的
+                    // link还有一种写法 在下面
+                    link:{
+                    }
+                }
+            })
+            //直接return一个方法 实际上指的就是post link
+            .directive('yyy',function(){
+                return function(){
+
+                }
+            })
+</script>
+</html>

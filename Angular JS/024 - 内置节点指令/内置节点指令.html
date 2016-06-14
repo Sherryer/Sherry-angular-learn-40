@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>节点指令</title>
+    <script src="../angular.min.js"></script>
+</head>
+<body ng-app="body">
+     <div ng-controller="c1">
+         <div ng-style="{'color':'red','font-size':'20px'}">Sherry</div>
+         <div ng-style="style">Sherry</div>
+
+     <button ng-click="demo()">切换为{{!bool}}</button>
+     <p>{{bool}}</p>
+     <ul ng-switch on="bool">
+         <li ng-switch-when="true">子元素 ng-weitch-when='true'; 则显示</li>
+         <li ng-switch-when="false">子元素 ng-weitch-when='false'; 则显示</li>
+     </ul>
+         <img src="{{src}}" alt=""/>
+         <div ng-if="bool">嘻嘻嘻嘻</div>
+     </div>
+</body>
+<script>
+    //ng-style
+    angular.module('body',[]).controller('c1',function($scope){
+          $scope.style={
+              'color':'orange',
+              'font-weight':'bolder'
+          };
+        $scope.bool=false;
+
+        $scope.demo=function(){
+            $scope.bool=!$scope.bool
+        };
+        $scope.src='../../pic02.12.jpg'
+    });
+
+
+
+
+
+//    ng-style            显示style样式 json 形式 并且严格遵循'属性':'值' 都加引号的写法
+//    ng-class            里面写一个对象 第一个参数是calss 第二个参数是表达式 表达式为真才加上这个class
+//    ng-calss-even       用在repeat里面 奇数给什么 calss
+//    ng-class-odd        用在repeat里面 偶数给什么 calss
+//    ng-show             元素是否显示
+//    ng-hide             元素是否隐藏  默认为false
+//    ng-switch on='布尔值'        用于子元素的显示和隐藏
+//           子元素 ng-weitch-when='true'; 则显示
+//           子元素 ng-weitch-when='false'; 则隐藏
+//    ng-src              能达到延迟加载的效果 等js加载完再加载
+//    ng-href             能达到延迟加载的效果 等js加载完再加载
+//    ng-if='表达式'      如果表达式为真 才显示 不然不显示
+</script>
+</html>

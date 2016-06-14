@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular.min.js"></script>
+</head>
+<body ng-app="123">
+<div>
+    <div ng-controller="hehe">
+        <input type="text" ng-model="name"/>
+        {{name}}
+    </div>
+</div>
+
+<div >
+    <div ng-controller="haha">
+        <input type="text" ng-model="na"/>
+        {{na}}
+        {{age}}
+    </div>
+</div>
+</body>
+<script>
+//    var hehe= function ($scope) {
+//        $scope.name ='111'
+//    };
+   angular.module('123',[]).controller({
+       hehe:function($scope){$scope.name='aaa'},
+       haha:function($scope){$scope.name='na';$scope.age='20'}
+   });
+
+
+//    var haha=function($scope){
+//        //$(scrpe) 是一个作用域 这个作用域会向外找 直到顶层节点作用域rootScope
+//        //声明一个model 因为依赖注入 所以参数名必须 $scope
+//        $scope.na='222';
+//        $scope.age='20'
+//    };
+
+</script>
+</html>

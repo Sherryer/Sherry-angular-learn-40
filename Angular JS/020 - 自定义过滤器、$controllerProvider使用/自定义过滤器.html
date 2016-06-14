@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>自定义过滤器</title>
+    <script src="../angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+     <div ng-controller="c1">
+         {{Data}}
+         <ul>
+             <li ng-repeat="data in Data |filterCity">
+                 {{data.name}}
+                 {{data.age}}
+                 {{data.city}}
+             </li>
+         </ul>
+     </div>
+</body>
+<script>
+
+
+    angular.module('myApp',[],function($provide,$filterProvider,$controllerProvider){
+        $provide.service('Data',function(){
+            return[
+                {
+                    name:'张三',
+                    age:20,
+                    city:'上海'
+                },
+                {
+                    name:'李四',
+                    age:30,
+                    city:'北京'
+                }
+            ]
+        });
+
+       $filterProvider.register('filterAge',function(){ //必须要返回一个function
+           return function(obj){          //  要注意 参数是加return function(obj){} 中   这个参数是当前要被过滤的对象
+               console.log(obj);
+                 var  newObj=[];
+               angular.forEach(obj,function(item,key){
+                   if(item.age>20){
+                       newObj.push(item)
+                   }
+
+               });
+               return newObj;                // 必须返回一个对象 作为数据
+           }
+       });
+
+        $controllerProvider.register('c1',function($scope,Data){
+            $scope.Data=Data
+        })
+
+    })
+
+        //简便写法 直接在module()后面.一个filter('过滤器名字',function(){ return function(obj){ return obj } })
+            .filter('filterCity',function(){
+                return function(obj){             //  要注意 参数是加return function(obj){} 中可以有两个参数    第一个参数是当前要被过滤的对象 第二个是filter：冒号后面的条件
+                     var newObj=[];
+                    angular.forEach(obj,function(item){
+                        if(item.city=='上海'){
+                            newObj.push(item)
+                        }
+                    });
+                    return newObj
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    angular.module('myapp',[],function($controllerProvider){
+        $controllerProvider.register('c1',function($scope){
+            $scope.name='abc'
+        })
+    });
+
+    angular.module('myapp',[]).controller('c1',function($scope){
+        $scope.name='abc'
+    })
+</script>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>渲染指令</title>
+    <script src="../angular.min.js"></script>
+</head>
+<body ng-app="body">
+   <div ng-controller="c1">
+       <ul>
+           <!--等同于 且 优先级高于 $scope.name=Sherry -->
+           <li ng-init="name='Sherry'">
+               {{name}}
+           </li>
+       </ul>
+
+       <ul ng-init="arr=['上海','北京','杭州']">
+           <li ng-repeat="i in arr">
+               <span>{{$index}}</span>
+               <span>{{$first}}</span>
+               <span>{{$middle}}</span>
+               <span>{{$last}}</span>
+           </li>
+       </ul>
+
+
+
+       <div ng-include="'Sherry.html'"></div>
+       <div ng-include src="'Sherry.html'"></div>
+   </div>
+</body>
+<script>
+    angular.module('body',[]).controller('c1',['$scope',function($scope){
+
+    }]);
+//    ng-bind  angular加载完以后在现实里面的内容
+
+//    ng-init  初始化一个数据
+
+//    ng-repeat
+//        $index   当前索引下标
+//        $first   判断 是否为头元素
+//        $middle  判断 是否为非头非尾元素
+//        $last    判断 是否为尾元素
+
+//    ng-include   加在另一个页面
+
+//    ng-bind-template
+
+</script>
+</html>

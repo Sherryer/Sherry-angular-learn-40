@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular.min.js"></script>
+</head>
+<body ng-app="body">
+<div ng-controller="c1">
+    <xxx shuxing="name">111</xxx>
+
+    {{name}}
+</div>
+</body>
+<script>
+    //scope属性 为当前指令创造一个新的作用域
+    // 1. scope:true
+    // 2. scope:{
+    //    a:'&shuxing'   把父作用域的属性包装成一个函数从而以函数的方式读写父作用域的属性
+    //    a:'=shuxing'   双向绑定
+    //    a:'@shuxing'   只能读取
+    // }
+
+    angular.module('body',[])
+            .directive('xxx',function(){
+                return {
+                    restrict:"ECMA",
+                    template:'<div>Sherry</div>',
+                    replace:true,
+
+                    scope:true,
+                    controller:function($scope){
+
+                        console.log($scope)
+                    },
+                    controllerAs:'bookList'
+                }
+
+
+            })
+
+
+
+
+            .controller('c1',['$scope',function($scope){
+                console.log($scope);
+                $scope.name='aaa';
+                this.addBook=function(){
+                    alert(1)
+                }
+            }])
+</script>
+</html>

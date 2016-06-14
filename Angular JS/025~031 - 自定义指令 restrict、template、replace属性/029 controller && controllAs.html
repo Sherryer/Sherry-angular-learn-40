@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular.min.js"></script>
+</head>
+<body ng-app="body">
+<div ng-controller="c1">
+    <xxx>111</xxx>
+    {{name}}
+</div>
+</body>
+<script>
+    //controller 就几乎等同于controller controllerAs是给这个controller起个名字
+    angular.module('body',[])
+            .directive('xxx',function(){
+                return {
+                    restrict:"ECMA",
+                    template:'<div>Sherry</div>',
+                    replace:true,
+
+                    controller:function($scope){
+                        $scope.name='aaa';
+                        this.addBook=function(){
+                            alert(1)
+                        }
+                    },
+                    controllerAs:'bookList',
+                    link:function(scope,element,attr,a){
+//                        console.log(a.addBook)
+                        console.log(element)
+                    }
+                }
+
+
+            })
+
+
+
+
+            .controller('c1',['$scope',function($scope){
+            }])
+</script>
+</html>
