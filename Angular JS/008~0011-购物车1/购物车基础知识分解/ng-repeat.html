@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../angular.min.js"></script>
+</head>
+<body ng-app="body">
+<table ng-controller="c1">
+    <tr ng-repeat="i in data">
+        <td>{{i.a}}</td>
+        <td>{{i.b}}</td>
+        <td>{{i.c}}</td>
+    </tr>
+</table>
+</body>
+<script>
+    angular.module("body",[]).controller("c1",function($scope){
+        $scope.data = [
+            {a:1,b:2,c:3},
+            {a:11,b:22,c:33},
+            {a:111,b:222,c:333}
+        ]
+    })
+</script>
+</html>

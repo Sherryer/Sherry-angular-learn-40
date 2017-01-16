@@ -11,7 +11,7 @@
 $watch('a',b,c) 三个参数<br/>
 a 一直watch(观察)的对象 必须引号引起来<br/>
 b 这个对象改变后触发的函数也有两个参数(newValue,oldValue)<br/>
-c 布尔值  如果观察的是一个对象比如json{} c写true会观查对象里每一个属性的变化 写false只会看对象是否变化了<br/>
+c 布尔值(深度观察)  如果观察的是一个对象比如json{} c写true会观查对象里每一个属性的变化 写false只会看对象是否变化了<br/>
 
 <div ng-controller="ct1">
     <input type="text" ng-model="name"/>
