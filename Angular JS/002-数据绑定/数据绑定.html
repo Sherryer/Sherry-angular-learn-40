@@ -3,22 +3,62 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script src='../angular.min.js'></script>
 </head>
-<body ng-app>
-<!--view=>123-->
-<!--model=>123-->
-<!--双向绑定-->
-<!--一个model对应了三个view 动model一个 三个view都会跟这边-->
-<input type="text" ng-model="aa" value="123"/>
-<!--angular的表达式-->
-{{aa}}
+<body ng-app="aa">
+<div ng-controller="c1">
+    <!--view=>123-->
+    <!--model=>123-->
+    <!--双向绑定-->
+    <!--一个model对应了三个view 动model一个 三个view都会跟这边-->
+    <h2>双向绑定</h2>
+    <input type="text" ng-model="aa" value="123"/>
+    <!--angular的表达式-->
+    {{aa}}
 
-<script src='../angular.min.js'></script>
+    <div>
+        <textarea name="" id="" cols="30" rows="10" ng-model="bb"></textarea>
+    </div>
+    <div style="white-space: pre">
+        {{bb}}
+    </div>
+
+    <div>
+        <h2>复选框</h2>
+        <p>在angular中复选框每个选项要对应一个model，而vue的复选框 可以对应同一个model（类型必须是数组）</p>
+        <input type="checkbox" id="jack" value="Jack" ng-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" ng-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" ng-model="checkedNames">
+        <label for="mike">Mike</label>
+    </div>
+    <div>
+        {{checkedNames}}
+    </div>
+
+    <h2>下拉框</h2>
+    <select name="" id="select" ng-model="select">
+        <option value="" disabled>请选择</option>
+        <option>a</option>
+        <option>b</option>
+    </select>
+    <p>当前选择的是{{select}}</p>
+</div>
+</body>
 
 <script>
     //js表达式 可以通过解释  angular表达式通过 $parse解释
-//    var string='alert(1+2)';
-//    eval(string)
+    //    var string='alert(1+2)';
+    //    eval(string)
+
+    angular.module("aa", []).controller({
+        c1: function ($scope) {
+            $scope.checkedNames = [];
+            $scope.aa = "a1";
+            $scope.bb = "b2";
+            $scope.select = ""
+        }
+    })
 </script>
-</body>
 </html>
