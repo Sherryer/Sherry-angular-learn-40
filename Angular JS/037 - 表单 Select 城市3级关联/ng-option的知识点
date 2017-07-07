@@ -1,9 +1,0 @@
-    知识点：
-       ng-options 是用于select（多选一）中的类似ng-repeat的方法
-        1 作用是把遍历出的数据放在当前这个select中 以options（选项中）的形式呈现出来  说白了就是 把数据遍历到到各个选项中
-        2  ng-options 是目前唯一一个 被我发现的 module 和 view 可以分离赋值的写法
-
-       语法 x.id （module） as x. name （view） for x in data
-       规定 x.id （as前的一项 表示当前选项的module层 也就是数据层） as x.name（as后的一项  表示 当前选项的view层 也就是用户看得到的地方）
-
-       在开发中 建议把 as 前后都写成 一项 ：x.name as x.name for x in cities 这样使module层 和view层 保持一致
